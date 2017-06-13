@@ -1,39 +1,48 @@
-from urllib import parse
-import urllib3
+from flask import Flask
+from flask import request
+from flask import render_template
+import os
+from imdbapi import api
 import json
 
+# if (len(matching_cast)):
+#     print('{} match{}'.format(len(matching_cast), ('es' if len(matching_cast) > 1 else '')), end="\n")
+#     for first, second in matching_cast:
+#         print('{} played {} in {} and {} in {}'
+#               .format(first['name'],
+#                       first['character'],
+#                       '{} ({})'.format(first_movie['title'], first_movie['year']),
+#                       second['character'],
+#                       '{} ({})'.format(second_movie['title'], second_movie['year'])
+#                       ),
+#               end="\n")
+# else:
+#     print('No matches between {} and {}'.format('{} ({})'.format(first_movie['title'], first_movie['year']),
+#                                                 '{} ({})'.format(second_movie['title'], second_movie['year'])))
 
-## https://developers.themoviedb.org/3/getting-started
-## http://www.theimdbapi.org/#
+app = Flask(__name__)
 
-def get_movie(title, year=None):
-    request = urllib3.PoolManager()
-    params = {'title': title}
-    if (year):
-        params['year'] = year
-    response = request.request('GET', 'http://www.theimdbapi.org/api/find/movie?{}'.format(parse.urlencode(params)))
-    data = response.data.decode('UTF-8')
-    return json.loads(data)[0]
+def get_template_path(template):
+    return os.getcwd() + '/templates/' + template
+
+@app.route('/', methods=['GET'])
+def index():
+   return render_template('index.html')
+
+@app.route('/search_title', methods=['GET'])
+def search():
+    term = request.args['term']
+    titles = api.search_titles(term)
+    # titles = [{'label':'Lorem','value':'Lorem'}]
+    # return json.dumps(titles);
+    options = []
+    for title in titles:
+        options.append(
+            {'label':'{} ({})'.format(title['title'], title['year']),'value': title['imdb_id']}
+        )
+
+    return json.dumps(options)
 
 
-first_movie = get_movie(input('First film title: '), input('first film year(optional): '))
-second_movie = get_movie(input('Second film title: '), input('second film year(optional): '))
-matching_cast = [(first, second)
-                 for first in first_movie['cast']
-                 for second in second_movie['cast']
-                 if first['name'] == second['name']]
-
-if (len(matching_cast)):
-    print('{} match{}'.format(len(matching_cast), ('es' if len(matching_cast) > 1 else '')), end="\n")
-    for first, second in matching_cast:
-        print('{} played {} in {} and {} in {}'
-              .format(first['name'],
-                      first['character'],
-                      '{} ({})'.format(first_movie['title'], first_movie['year']),
-                      second['character'],
-                      '{} ({})'.format(second_movie['title'], second_movie['year'])
-                      ),
-              end="\n")
-else:
-    print('No matches between {} and {}'.format('{} ({})'.format(first_movie['title'], first_movie['year']),
-                                                '{} ({})'.format(second_movie['title'], second_movie['year'])))
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block footer_js %}
+    <script src="{{url_for('static', filename='js/index.js')}}"></script>
+{% endblock %}
+{% block content %}
+    <form method="post" action="get_cast">
+        <input type="text" name="first_movie" placeholder="First Movie" class="title_search" />
+    </form>
+    <script type="text/javascript">
+    $(function() {
+        $('.title_search').titleSearch();
+    });
+    </script>
+{% endblock %}
