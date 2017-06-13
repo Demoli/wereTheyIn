@@ -18,7 +18,6 @@ def get_movie(title, year=None):
 
 first_movie = get_movie(input('First film title: '), input('first film year(optional): '))
 second_movie = get_movie(input('Second film title: '), input('second film year(optional): '))
-
 matching_cast = [(first, second)
                  for first in first_movie['cast']
                  for second in second_movie['cast']
@@ -30,10 +29,11 @@ if (len(matching_cast)):
         print('{} played {} in {} and {} in {}'
               .format(first['name'],
                       first['character'],
-                      first_movie['title'],
+                      '{} ({})'.format(first_movie['title'], first_movie['year']),
                       second['character'],
-                      second_movie['title']
+                      '{} ({})'.format(second_movie['title'], second_movie['year'])
                       ),
               end="\n")
 else:
-    print('No matches between {} and {}'.format(first_movie['title'], second_movie['title']))
+    print('No matches between {} and {}'.format('{} ({})'.format(first_movie['title'], first_movie['year']),
+                                                '{} ({})'.format(second_movie['title'], second_movie['year'])))
