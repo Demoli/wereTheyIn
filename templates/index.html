@@ -1,14 +1,30 @@
 {% extends "layout.html" %}
 {% block footer_js %}
-    <script src="{{url_for('static', filename='js/index.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.titleSearch.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.titleCompare.js')}}"></script>
 {% endblock %}
 {% block content %}
-    <form method="post" action="get_cast">
-        <input type="text" name="first_movie" placeholder="First Movie" class="title_search" />
-    </form>
+    <input type="hidden" id="first_mvoie_id" />
+    <input type="hidden" id="second_mvoie_id" />
+    <input type="text" name="first_movie" id="search_first" placeholder="First Movie" class="title_search" value="Death Mach"/>
+    <div id="first_movie"></div>
+    <input type="text" name="second_movie" id="search_second" placeholder="Second Movie" class="title_search" value="Dun"/>
+    <div id="second_movie"></div>
+
+    <button id="compare">Compare Movies</button>
+    <div id="compare_result"></div>
+
     <script type="text/javascript">
     $(function() {
-        $('.title_search').titleSearch();
+        $('#search_first').titleSearch(
+            {load_element:$('#first_movie'), id_element: $('#first_mvoie_id')}
+        );
+        $('#search_second').titleSearch({load_element:$('#second_movie'), id_element: $('#second_mvoie_id')});
+
+        $('#compare').titleCompare({
+            first_id_element: $('#first_mvoie_id'),
+            second_id_element: $('#second_mvoie_id')
+        })
     });
     </script>
 {% endblock %}

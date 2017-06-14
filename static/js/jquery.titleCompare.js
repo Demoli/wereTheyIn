@@ -5,10 +5,12 @@
 
 (function($) {
 
-    $.titleSearch = function(element, options) {
+    $.titleCompare = function(element, options) {
 
         var defaults = {
-            url: '/search_title'
+            first_id_element: null,
+            second_id_element: null,
+            compare_url : '/compare_titles'
         }
 
         var plugin = this;
@@ -24,13 +26,13 @@
         }
 
         var register_events = function() {
-            $element.autocomplete(
-                {
-                    source: plugin.settings.url,
-                    minLength:4,
-                    delay:1000
-                }
-            )
+            $element.click(function() {
+                first_id = plugin.settings.first_id_element.val()
+                second_id = plugin.settings.second_id_element.val();
+
+                url = plugin.settings.compare_url + '?first=' + first_id + '&second=' + second_id;
+                $('#compare_result').load(url);
+            })
         }
 
         plugin.foo_public_method = function() {
@@ -45,12 +47,12 @@
 
     }
 
-    $.fn.titleSearch = function(options) {
+    $.fn.titleCompare = function(options) {
 
         return this.each(function() {
-            if (undefined == $(this).data('pluginName')) {
-                var plugin = new $.titleSearch(this, options);
-                $(this).data('pluginName', plugin);
+            if (undefined == $(this).data('titleCompare')) {
+                var plugin = new $.titleCompare(this, options);
+                $(this).data('titleCompare', plugin);
             }
         });
 
