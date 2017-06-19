@@ -17,30 +17,33 @@
 
         plugin.settings = {}
 
+        plugin.search_elements = []
+
         var $element = $(element),
              element = element;
 
         plugin.init     = function() {
             plugin.settings = $.extend({}, defaults, options);
+            plugin.search_elements = [
+                plugin.settings.first_id_element,
+                plugin.settings.second_id_element
+            ]
             register_events();
         }
 
         var register_events = function() {
-            $element.click(function() {
-                first_id = plugin.settings.first_id_element.val()
-                second_id = plugin.settings.second_id_element.val();
 
-                url = plugin.settings.compare_url + '?first=' + first_id + '&second=' + second_id;
-                $('#compare_result').load(url);
+            $(plugin.search_elements).each(function() {
+                $(this).change(function() {
+                    var first_id = plugin.search_elements[0].val();
+                    var second_id = plugin.search_elements[1].val();
+
+                    if(first_id && second_id) {
+                        url = plugin.settings.compare_url + '?first=' + first_id + '&second=' + second_id;
+                        $('#compare_result').load(url);
+                    }
+                });
             })
-        }
-
-        plugin.foo_public_method = function() {
-            // code goes here
-        }
-
-        var foo_private_method = function() {
-            // code goes here
         }
 
         plugin.init();

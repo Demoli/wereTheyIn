@@ -35,6 +35,7 @@
                     select: function (event, ui) {
                         var id = ui.item.value
                         plugin.settings.id_element.val(id);
+                        plugin.settings.id_element.change();
                         $element.val(ui.item.label);
                         plugin.settings.load_element.load(plugin.settings.get_url + '?id=' + id)
                         return false;

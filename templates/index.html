@@ -4,7 +4,7 @@
     <script src="{{url_for('static', filename='js/jquery.titleCompare.js')}}"></script>
 {% endblock %}
 {% block content %}
-<div class="row">
+<div class="row" id="title-search">
     <input type="hidden" id="first_mvoie_id" />
     <input type="hidden" id="second_mvoie_id" />
     <div class="col-md-6 title-search">
@@ -19,8 +19,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-16 compare-button">
-        <button id="compare">Compare Movies</button>
+    <div class="col-md-16 compare-container">
         <div id="compare_result"></div>
     </div>
 </div>
@@ -31,7 +30,7 @@
         );
         $('#search_second').titleSearch({load_element:$('#second_movie'), id_element: $('#second_mvoie_id')});
 
-        $('#compare').titleCompare({
+        $('#title-search').titleCompare({
             first_id_element: $('#first_mvoie_id'),
             second_id_element: $('#second_mvoie_id')
         })
