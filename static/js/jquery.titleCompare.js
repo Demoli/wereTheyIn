@@ -35,6 +35,7 @@
 
             $(plugin.search_elements).each(function() {
                 $(this).change(function() {
+                    $('#compare_result').empty();
                     var first_id = plugin.search_elements[0].val();
                     var second_id = plugin.search_elements[1].val();
 

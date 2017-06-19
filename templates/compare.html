@@ -1,3 +1,7 @@
-{% for row in output_rows %}
-  <li>{{row}}</li>
-{% endfor %}
+{% if output_rows|length() %}
+  {% for row in output_rows %}
+    <li>{{row}}</li>
+  {% endfor %}
+{% else %}
+  There are no common cast members between these two titles
+{% endif %}
