@@ -3,9 +3,9 @@
 // version 1.1, May 14th, 2011
 // by Stefan Gabos
 
-(function($) {
+(function ($) {
 
-    $.titleSearch = function(element, options) {
+    $.titleSearch = function (element, options) {
 
         var defaults = {
             search_url: '/search_title',
@@ -19,34 +19,35 @@
         plugin.settings = {}
 
         var $element = $(element),
-             element = element;
+            element = element;
 
-        plugin.init     = function() {
+        plugin.init = function () {
             plugin.settings = $.extend({}, defaults, options);
             register_events();
         }
 
-        var register_events = function() {
+        var register_events = function () {
             $element.autocomplete(
                 {
                     source: plugin.settings.search_url,
-                    minLength:4,
-                    delay:1000,
-                     select: function( event, ui ) {
+                    minLength: 4,
+                    delay: 1000,
+                    select: function (event, ui) {
                         var id = ui.item.value
                         plugin.settings.id_element.val(id);
                         $element.val(ui.item.label);
                         plugin.settings.load_element.load(plugin.settings.get_url + '?id=' + id)
-                     }
+                        return false;
+                    }
                 }
             )
         }
 
-        plugin.foo_public_method = function() {
+        plugin.foo_public_method = function () {
             // code goes here
         }
 
-        var foo_private_method = function() {
+        var foo_private_method = function () {
             // code goes here
         }
 
@@ -54,9 +55,9 @@
 
     }
 
-    $.fn.titleSearch = function(options) {
+    $.fn.titleSearch = function (options) {
 
-        return this.each(function() {
+        return this.each(function () {
             if (undefined == $(this).data('titleSearch')) {
                 var plugin = new $.titleSearch(this, options);
                 $(this).data('titleSearch', plugin);

@@ -32,8 +32,6 @@ def index():
 def search():
     term = request.args['term']
     titles = api.search_titles(term)
-    # titles = [{'label':'Lorem','value':'Lorem'}]
-    # return json.dumps(titles);
     options = []
     for title in titles:
         options.append(
