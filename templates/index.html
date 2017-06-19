@@ -10,11 +10,13 @@
     <div class="col-md-6 title-search">
         <label for="search_first">Compare</label>
         <input type="text" name="first_movie" id="search_first" placeholder="First Movie" class="title_search" />
+        <img class="ajax-loader" src="{{url_for('static', filename='images/ajax-loader.gif')}}" />
         <div id="first_movie"></div>
     </div>
     <div class="col-md-6 title-search">
         <label for="search_first">To</label>
         <input type="text" name="second_movie" id="search_second" placeholder="Second Movie" class="title_search" />
+        <img class="ajax-loader" src="{{url_for('static', filename='images/ajax-loader.gif')}}" />
         <div id="second_movie"></div>
     </div>
 </div>

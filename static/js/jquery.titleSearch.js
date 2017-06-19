@@ -32,6 +32,12 @@
                     source: plugin.settings.search_url,
                     minLength: 4,
                     delay: 1000,
+                    search:function() {
+                        $element.siblings('.ajax-loader').show();
+                    },
+                    open: function(event, ui) {
+                        $element.siblings('.ajax-loader').hide();
+                    },
                     select: function (event, ui) {
                         var id = ui.item.value
                         plugin.settings.id_element.val(id);

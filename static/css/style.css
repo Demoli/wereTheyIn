@@ -1,6 +1,11 @@
 .title-search {
     padding:20px;
 }
+
 .compare-container {
     text-align: center;
+}
+
+.ajax-loader {
+    display: none;
 }
