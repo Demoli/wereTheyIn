@@ -1,7 +1,13 @@
+
 {% if output_rows|length() %}
+<ul class="cast-list">
   {% for row in output_rows %}
-    <li>{{row}}</li>
+    <li>
+      <p><img src="{{ row.first.image }}" /></p>
+      <p>{{ row.first.name }} played {{ row.first.character }} in {{ row.first_movie.title }} and {{ row.second.character }} in {{ row.second_movie.title }}</p>
+    </li>
   {% endfor %}
+</ul>
 {% else %}
   There are no common cast members between these two titles
 {% endif %}

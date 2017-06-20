@@ -55,13 +55,7 @@ def compare_titles():
     matching_cast = api.get_matching_cast(first_movie, second_movie)
     output_rows = [];
     for first, second in matching_cast:
-        row = '{} played {} in {} and {} in {}' \
-            .format(first['name'],
-                    first['character'],
-                    '{} ({})'.format(first_movie['title'], first_movie['year']),
-                    second['character'],
-                    '{} ({})'.format(second_movie['title'], second_movie['year'])
-                    )
+        row = {'first': first, 'second': second, 'first_movie': first_movie, 'second_movie': second_movie}
         output_rows.append(row)
     return render_template('compare.html', output_rows=output_rows)
 

@@ -9,3 +9,7 @@
 .ajax-loader {
     display: none;
 }
+
+.cast-list li {
+    list-style:none
+}
